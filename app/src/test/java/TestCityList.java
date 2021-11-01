@@ -1,0 +1,53 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.example.simpleparadox.listycity.City;
+import com.example.simpleparadox.listycity.CustomList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+public class TestCityList {
+
+    private CustomList list;
+
+    @BeforeEach
+    public void createList(){
+        list = new CustomList(null, new ArrayList<City>());
+    }
+
+    @Test
+    public void addCityTest() {
+        int listSize = list.getCount();
+        list.addCity(new City("Halifax", "NS"));
+        assertEquals(list.getCount(), listSize+1);
+    }
+
+    @Test
+    public void hasCityTest(){
+        City city  = new City("Edmonton", "AB");
+        assertFalse(list.hasCity(city));
+        list.addCity(city);
+        assertTrue(list.hasCity(city));
+    }
+
+    @Test
+    public void countCitiesTest(){
+        assertEquals(list.getCount(), 0);
+        list.addCity(new City("Regina", "SK"));
+        assertEquals(list.getCount(), 1);
+    }
+
+    @Test
+    public void deleteCityTest(){
+        City city = new City("Washington", "DC");
+        assertFalse(list.hasCity(city));
+        list.addCity(city);
+        assertTrue(list.hasCity(city));
+        list.deleteCity(city);
+        assertFalse(list.hasCity(city));
+    }
+}
